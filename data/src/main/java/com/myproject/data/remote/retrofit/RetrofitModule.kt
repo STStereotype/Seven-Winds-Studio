@@ -15,7 +15,7 @@ class RetrofitModule {
             .addInterceptor(httpLoggingInterceptor)
             .build()
 
-    fun retrofit(okHttpClient: OkHttpClient) : Retrofit =
+    fun retrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl("http://147.78.66.203:3210/")
             .client(okHttpClient)
