@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "sevenwindsstudio"
 include(":app")
+include(":domain")
+include(":data")
