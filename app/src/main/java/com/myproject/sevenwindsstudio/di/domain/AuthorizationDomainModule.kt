@@ -1,11 +1,8 @@
-package com.myproject.sevenwindsstudio.di
+package com.myproject.sevenwindsstudio.di.domain
 
 import com.myproject.domain.repository.authorization.AuthorizationRepository
-import com.myproject.domain.repository.coffeeshop.CoffeeShopRepository
 import com.myproject.domain.usecase.authorization.LogInUseCase
 import com.myproject.domain.usecase.authorization.RegistrationUseCase
-import com.myproject.domain.usecase.coffeeshop.PutListDrinksUseCase
-import com.myproject.domain.usecase.coffeeshop.PutListEstablishmentsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DomainModule {
+class AuthorizationDomainModule {
     @Provides
     @Singleton
     fun provideLogInUseCase(authorizationRepository: AuthorizationRepository) : LogInUseCase =
@@ -26,16 +23,4 @@ class DomainModule {
         authorizationRepository: AuthorizationRepository
     ) : RegistrationUseCase =
         RegistrationUseCase(authorizationRepository)
-
-    @Provides
-    @Singleton
-    fun providePutListDrinksUseCase(coffeeShopRepository: CoffeeShopRepository) : PutListDrinksUseCase =
-        PutListDrinksUseCase(coffeeShopRepository)
-
-    @Provides
-    @Singleton
-    fun providePutListEstablishmentsUseCase(
-        coffeeShopRepository: CoffeeShopRepository
-    ) : PutListEstablishmentsUseCase =
-        PutListEstablishmentsUseCase(coffeeShopRepository)
 }
