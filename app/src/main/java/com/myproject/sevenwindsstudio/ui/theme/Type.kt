@@ -1,34 +1,83 @@
 package com.myproject.sevenwindsstudio.ui.theme
 
-import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
-val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+val Typography = SevenWindsStudioTypography(
+    primary = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+        textAlign = TextAlign.Center,
+        color = BaseLightPalette.primaryColor
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
+    secondary = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        color = BaseLightPalette.secondaryColor
+    ),
+    cartSecondary = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
         fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        fontSize = 16.sp,
+        color = BaseLightPalette.secondaryColor
+    ),
+    informationText = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Medium,
+        fontSize = 24.sp,
+        textAlign = TextAlign.Center,
+        color = BaseLightPalette.primaryColor
+    ),
+    button = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+        textAlign = TextAlign.Center,
+        color = BaseLightPalette.buttonTextColor
+    ),
+    cardDrinkName = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Medium,
+        fontSize = 15.sp,
+        color = BaseLightPalette.secondaryColor
+    ),
+    cardDrinkPrice = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp,
+        color = BaseLightPalette.primaryColor
+    ),
+    cardDrinkCount = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        color = BaseLightPalette.primaryColor
+    ),
+    placeholderAndValue = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Normal,
+        fontSize = 18.sp,
+        color = BaseLightPalette.secondaryColor
+    ),
+    label = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Normal,
+        fontSize = 15.sp,
+        color = BaseLightPalette.primaryColor
     )
-    */
 )
