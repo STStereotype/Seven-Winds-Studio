@@ -1,0 +1,36 @@
+package com.myproject.sevenwindsstudio.screens.widgets
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.myproject.sevenwindsstudio.ui.theme.SevenWindsStudioTheme
+
+@Composable
+fun AuthButton(
+    modifier: Modifier = Modifier,
+    title: String,
+    onClick: () -> Unit
+) {
+    Box(modifier = modifier) {
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = onClick
+            ,
+            contentPadding = PaddingValues(vertical = 13.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = SevenWindsStudioTheme.colors.buttonColor
+            )
+        ) {
+            Text(
+                style = SevenWindsStudioTheme.typography.button,
+                text = title
+            )
+        }
+    }
+}
