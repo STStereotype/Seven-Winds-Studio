@@ -27,7 +27,7 @@ class CartRepositoryImpl(
             drinks = gson.toJson(cartItem.drinks)
         )
 
-    override suspend fun deleteCartItem(establishment: String) = cartDao.deleteItem(establishment)
+    override suspend fun deleteCartItem(establishment: Int) = cartDao.deleteItem(establishment)
 
     override suspend fun placeAnOrder(cartItem: CartItem): Boolean = true
 

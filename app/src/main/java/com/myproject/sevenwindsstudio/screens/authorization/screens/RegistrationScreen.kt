@@ -13,7 +13,6 @@ import com.myproject.sevenwindsstudio.screens.authorization.view.SendingView
 fun RegistrationScreen(
     childNavController: NavController,
     viewModel: AuthorizationViewModel,
-    onLogIn: () -> Unit,
 ) {
     val viewState = viewModel.state.collectAsState().value
 
@@ -21,7 +20,9 @@ fun RegistrationScreen(
         onClick = { email, password, confirmPassword ->
             viewModel.registration(email, password, confirmPassword!!)
         },
-        onLogIn = onLogIn
+        onLogIn = {
+            viewModel.navigateToLogIn(childNavController)
+        }
     )
 
     when (val state = viewState) {

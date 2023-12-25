@@ -5,6 +5,6 @@ import com.myproject.domain.repository.cart.CartRepository
 class DeleteCartItemUseCase(
     private val cartRepository: CartRepository
 ) {
-    suspend fun execute(establishment: String) =
+    suspend fun execute(establishment: Int) =
         cartRepository.deleteCartItem(establishment = establishment)
 }

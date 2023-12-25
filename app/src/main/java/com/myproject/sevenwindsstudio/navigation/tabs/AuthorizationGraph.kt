@@ -27,10 +27,7 @@ fun NavGraphBuilder.authorizationGraph(
 
             RegistrationScreen(
                 childNavController = childNavController,
-                viewModel = viewModel!!,
-                onLogIn = {
-                    viewModel!!.navigateToLogIn(childNavController)
-                }
+                viewModel = viewModel!!
             )
         }
         composable(AuthorizationGraphDestination.LogIn.destination) {

@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.myproject.sevenwindsstudio.ui.theme.SevenWindsStudioTheme
 
 @Composable
-fun AuthButton(
+fun ButtonAction(
     modifier: Modifier = Modifier,
     title: String,
     onClick: () -> Unit
@@ -20,8 +20,7 @@ fun AuthButton(
     Box(modifier = modifier) {
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = onClick
-            ,
+            onClick = onClick,
             contentPadding = PaddingValues(vertical = 13.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = SevenWindsStudioTheme.colors.buttonColor

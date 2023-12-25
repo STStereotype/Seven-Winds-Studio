@@ -80,6 +80,7 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     // Room
     val roomVersion = "2.6.1"

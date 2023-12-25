@@ -23,7 +23,7 @@ class CartDataModule {
         Room.databaseBuilder(
             context,
             CartDataBase::class.java,
-            name = "seven_winds_studio_database"
+            name = "seven_database"
         )
             .allowMainThreadQueries()
             .build()

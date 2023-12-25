@@ -14,7 +14,7 @@ import java.lang.reflect.Type
 data class CartEntity(
     @PrimaryKey
     @ColumnInfo(name = "establishment")
-    val establishment: String,
+    val establishment: Int,
 
     @ColumnInfo(name = "drinks")
     val drinks: String,

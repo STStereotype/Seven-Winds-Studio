@@ -27,6 +27,7 @@ class AuthorizationViewModel @Inject constructor(
 ): ViewModel() {
 
     private var toast: Toast? = null
+    private var token: String = ""
     val state: MutableStateFlow<AuthorizationState> = MutableStateFlow(AuthorizationState.Default)
 
     fun registration(email: String, password: String, confirmPassword: String) {
@@ -47,9 +48,8 @@ class AuthorizationViewModel @Inject constructor(
         state.value = AuthorizationState.SendingState
         CoroutineScope(Dispatchers.IO).launch {
             var errorMessage = ""
-            val response: AuthResponse
             try {
-                response = registrationUseCase.execute(
+                registrationUseCase.execute(
                     Authorization(
                         login = email,
                         password = password
@@ -97,6 +97,7 @@ class AuthorizationViewModel @Inject constructor(
                         password = password
                     )
                 )
+                token = response.token
             } catch (e: Exception) {
                 errorMessage = e.message!!
             }
@@ -126,7 +127,9 @@ class AuthorizationViewModel @Inject constructor(
 
     fun navigateToCoffeeShop(navController: NavController) {
         state.value = AuthorizationState.Default
-        navigateTo(navController, MainGraphDestination.CoffeeShop.destination)
+        val destinations = MainGraphDestination.CoffeeShop.destination
+            .substringBefore("{")
+        navigateTo(navController, "$destinations$token")
     }
 
     fun navigateToRegistration(childNavController: NavController) {

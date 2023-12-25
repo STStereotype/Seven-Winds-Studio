@@ -15,8 +15,8 @@ interface CartDao {
     fun addCartItem(entities: CartEntity)
 
     @Query("UPDATE ${CartEntity.TABLE_NAME} SET drinks = :drinks WHERE establishment = :establishment")
-    fun updateDrinks(establishment: String, drinks: String)
+    fun updateDrinks(establishment: Int, drinks: String)
 
     @Query("DELETE FROM ${CartEntity.TABLE_NAME} WHERE establishment = :establishment")
-    fun deleteItem(establishment: String)
+    fun deleteItem(establishment: Int)
 }

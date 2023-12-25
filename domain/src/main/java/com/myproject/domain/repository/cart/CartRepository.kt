@@ -7,6 +7,6 @@ interface CartRepository {
     suspend fun fetchCart(): Cart
     suspend fun addCartItem(cartItem: CartItem)
     suspend fun updateCartItem(cartItem: CartItem)
-    suspend fun deleteCartItem(establishment: String)
+    suspend fun deleteCartItem(establishment: Int)
     suspend fun placeAnOrder(cartItem: CartItem): Boolean
 }

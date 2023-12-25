@@ -1,6 +1,7 @@
 package com.myproject.domain.models.cart
 
 data class CartItem(
-    val establishment: String,
+    val establishment: Int,
     val drinks: ArrayList<CartDrinkItem>
 )
+

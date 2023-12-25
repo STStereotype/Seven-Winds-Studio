@@ -14,7 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.myproject.sevenwindsstudio.screens.widgets.AuthButton
+import com.myproject.sevenwindsstudio.screens.widgets.ButtonAction
 import com.myproject.sevenwindsstudio.screens.widgets.Header
 import com.myproject.sevenwindsstudio.screens.widgets.TextFieldEmail
 import com.myproject.sevenwindsstudio.screens.widgets.TextFieldPassword
@@ -47,7 +47,7 @@ fun LogInView(
                 modifier = Modifier.padding(start = 18.dp, end = 18.dp, top = 24.dp),
                 password = password
             )
-            AuthButton(
+            ButtonAction(
                 modifier = Modifier.padding(start = 18.dp, end = 18.dp, top = 43.dp),
                 title = "Вход",
                 onClick = {
