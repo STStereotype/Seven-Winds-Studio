@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.myproject.sevenwindsstudio.screens.authorization.AuthorizationScreen
+import com.myproject.sevenwindsstudio.screens.cart.CartMainScreen
 import com.myproject.sevenwindsstudio.screens.coffeeShop.CoffeeShopScreen
 
 fun NavGraphBuilder.mainGraph(
@@ -21,12 +22,16 @@ fun NavGraphBuilder.mainGraph(
         }
         composable(
             route = MainGraphDestination.CoffeeShop.destination,
-            arguments = listOf(navArgument("token") {
-                type = NavType.StringType
-            })) { backStackEntry ->
-            val token = backStackEntry.arguments?.getString("token")
-            CoffeeShopScreen(navController = navController, token)
+        ) {
+            CoffeeShopScreen(navController = navController)
         }
-        composable(MainGraphDestination.Cart.destination) { }
+        composable(
+            route = MainGraphDestination.Cart.destination,
+            arguments = listOf(navArgument("idEstablishment") {
+                type = NavType.IntType
+            })) { backStackEntry ->
+            val idEstablishment = backStackEntry.arguments?.getInt("idEstablishment")
+            CartMainScreen(navController = navController, idEstablishment!!)
+        }
     }
 }

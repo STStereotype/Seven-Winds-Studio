@@ -30,6 +30,7 @@ data class SevenWindsStudioTypography(
     val cardDrinkName: TextStyle,
     val cardDrinkPrice: TextStyle,
     val cardDrinkCount: TextStyle,
+    val cartDrinkCount: TextStyle,
     val placeholderAndValue: TextStyle,
     val label: TextStyle
 )

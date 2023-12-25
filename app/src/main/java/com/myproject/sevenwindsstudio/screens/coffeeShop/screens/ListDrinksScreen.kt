@@ -9,6 +9,7 @@ import com.myproject.sevenwindsstudio.screens.coffeeShop.view.ListDrinksView
 
 @Composable
 fun ListDrinksScreen(
+    navController: NavController,
     childNavController: NavController,
     viewModel: CoffeeShopViewModel
 ) {
@@ -31,7 +32,7 @@ fun ListDrinksScreen(
         },
         idAndCountDrinksInCart = idAndCountDrinksInCart,
         onProceedToPayment = {
-
+            viewModel.navigateToCart(navController = navController)
         }
     )
 

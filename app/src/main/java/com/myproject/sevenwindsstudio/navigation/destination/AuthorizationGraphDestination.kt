@@ -8,7 +8,7 @@ sealed class AuthorizationGraphDestination(val destination: String) {
         "${NavGraphTabs.Authorization.route}_registrationScreen"
     )
     data object LogIn: AuthorizationGraphDestination(
-        "${NavGraphTabs.Authorization.route}_logIn"
+        "${NavGraphTabs.Authorization.route}_logInScreen"
     )
 }
 

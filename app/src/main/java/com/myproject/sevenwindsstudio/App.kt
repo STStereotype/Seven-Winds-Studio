@@ -8,4 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 
 @HiltAndroidApp
 class App : Application() {
+    companion object {
+        var token: String = ""
+    }
 }

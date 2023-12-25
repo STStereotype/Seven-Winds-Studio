@@ -1,24 +1,25 @@
-package com.myproject.sevenwindsstudio.screens.coffeeShop
+package com.myproject.sevenwindsstudio.screens.cart
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.myproject.sevenwindsstudio.navigation.NavGraphTabs
-import com.myproject.sevenwindsstudio.navigation.tabs.coffeeShopGraph
+import com.myproject.sevenwindsstudio.navigation.tabs.cartGraph
 
 @Composable
-fun CoffeeShopScreen(
-    navController: NavController
+fun CartMainScreen(
+    navController: NavController,
+    idEstablishment: Int?
 ) {
     val childNavController = rememberNavController()
     NavHost(
         navController = childNavController,
-        startDestination = NavGraphTabs.CoffeeShop.route
+        startDestination = NavGraphTabs.Cart.route
     ) {
-        coffeeShopGraph(
+        cartGraph(
             navController = navController,
-            childNavController = childNavController
+            idEstablishment = idEstablishment
         )
     }
 }

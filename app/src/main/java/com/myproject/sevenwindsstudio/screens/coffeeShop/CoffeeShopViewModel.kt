@@ -1,41 +1,36 @@
 package com.myproject.sevenwindsstudio.screens.coffeeShop
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import com.myproject.domain.models.cart.Cart
 import com.myproject.domain.models.cart.CartDrinkItem
 import com.myproject.domain.models.cart.CartItem
 import com.myproject.domain.models.coffeeshop.DrinkItem
 import com.myproject.domain.models.coffeeshop.EstablishmentItem
 import com.myproject.domain.models.coffeeshop.mapToCartDrinkItem
 import com.myproject.domain.usecase.cart.AddCartItemUseCase
-import com.myproject.domain.usecase.cart.DeleteCartItemUseCase
 import com.myproject.domain.usecase.cart.FetchCartUseCase
 import com.myproject.domain.usecase.cart.UpdateCartItemUseCase
 import com.myproject.domain.usecase.coffeeshop.FetchListDrinksUseCase
 import com.myproject.domain.usecase.coffeeshop.FetchListEstablishmentsUseCase
+import com.myproject.sevenwindsstudio.App
 import com.myproject.sevenwindsstudio.navigation.MainGraphDestination
 import com.myproject.sevenwindsstudio.navigation.destination.CoffeeShopGraphDestination
 import com.myproject.sevenwindsstudio.screens.coffeeShop.model.CoffeeShopState
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CoffeeShopViewModel @AssistedInject constructor(
+@HiltViewModel
+class CoffeeShopViewModel @Inject constructor(
     private val fetchListEstablishmentsUseCase: FetchListEstablishmentsUseCase,
     private val fetchListDrinksUseCase: FetchListDrinksUseCase,
     private val fetchCartUseCase: FetchCartUseCase,
     private val addCartItemUseCase: AddCartItemUseCase,
-    private val updateCartItemUseCase: UpdateCartItemUseCase,
-    @Assisted private val token: String
+    private val updateCartItemUseCase: UpdateCartItemUseCase
 ): ViewModel() {
     private val _listEstablishments: MutableStateFlow<List<EstablishmentItem>> =
         MutableStateFlow(listOf())
@@ -56,29 +51,11 @@ class CoffeeShopViewModel @AssistedInject constructor(
         MutableStateFlow(mapOf())
     val idAndCountDishesInCart: StateFlow<Map<Int, Int>> = _idAndCountDishesInCart
 
-    @AssistedFactory
-    interface Factory {
-        fun create(token: String?): CoffeeShopViewModel
-    }
-
-    companion object {
-        fun provideDetailsViewModelFactory(
-            factory: Factory,
-            token: String?
-        ) : ViewModelProvider.Factory {
-            return object: ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return factory.create(token) as T
-                }
-            }
-        }
-    }
-
     // Нужно обработать исключение
     fun loadListEstablishments() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                _listEstablishments.emit(fetchListEstablishmentsUseCase.execute("Bearer $token"))
+                _listEstablishments.emit(fetchListEstablishmentsUseCase.execute("Bearer ${App.token}"))
             } catch (e: Exception) {
 
             }
@@ -91,7 +68,7 @@ class CoffeeShopViewModel @AssistedInject constructor(
             _currentIdEstablishment = idEstablishment
             try {
                 _listDrinks.emit(fetchListDrinksUseCase
-                    .execute("Bearer $token", idEstablishment))
+                    .execute("Bearer ${App.token}", idEstablishment))
                 updateCart()
 
             } catch (e: Exception) {
@@ -165,7 +142,6 @@ class CoffeeShopViewModel @AssistedInject constructor(
     fun updateCart() {
         CoroutineScope(Dispatchers.IO).launch {
             _cart.emit(fetchCartUseCase.execute().items)
-            Log.d("DEBUG_CHECK", _idAndCountDishesInCart.value.toString())
 
             _cart.value.forEach { cartItem ->
                 if (_currentIdEstablishment != cartItem.establishment) return@forEach
@@ -173,21 +149,25 @@ class CoffeeShopViewModel @AssistedInject constructor(
                     Pair(it.id, it.count)
                 })
             }
-            Log.d("DEBUG_CHECK", _idAndCountDishesInCart.value.toString())
             state.emit(CoffeeShopState.Default)
         }
     }
 
     fun navigateToLogIn(navController: NavController) {
         state.value = CoffeeShopState.LoadEstablishments
-        navigateTo(navController, MainGraphDestination.Authorization.destination)
+        navigateTo(
+            navController,
+            MainGraphDestination.Authorization.destination,
+            true
+        )
     }
 
     fun navigateToListEstablishments(childNavController: NavController) {
         state.value = CoffeeShopState.LoadEstablishments
         navigateTo(
             childNavController,
-            CoffeeShopGraphDestination.ListEstablishments.destination
+            CoffeeShopGraphDestination.ListEstablishments.destination,
+            true
         )
     }
 
@@ -195,7 +175,8 @@ class CoffeeShopViewModel @AssistedInject constructor(
         state.value = CoffeeShopState.LoadEstablishmentsOnMap
         navigateTo(
             childNavController,
-            CoffeeShopGraphDestination.ListEstablishmentsOnMap.destination
+            CoffeeShopGraphDestination.ListEstablishmentsOnMap.destination,
+            false
         )
     }
 
@@ -203,14 +184,25 @@ class CoffeeShopViewModel @AssistedInject constructor(
         state.value = CoffeeShopState.LoadDrinksOfEstablishment(idEstablishment)
         navigateTo(
             childNavController,
-            CoffeeShopGraphDestination.ListDrinks.destination
+            CoffeeShopGraphDestination.ListDrinks.destination,
+            false
         )
     }
 
-    private fun navigateTo(navController: NavController, root: String) {
+    fun navigateToCart(navController: NavController) {
+        state.value = CoffeeShopState.LoadEstablishments
+        val destinations = MainGraphDestination.Cart.destination
+            .substringBefore("{")
+        navigateTo(
+            navController,
+            "$destinations${_currentIdEstablishment}",
+            false
+        )
+    }
+    private fun navigateTo(navController: NavController, root: String, isInclusive: Boolean) {
         navController.navigate(root) {
             popUpTo(navController.currentDestination?.route.toString()) {
-                inclusive = true
+                inclusive = isInclusive
             }
         }
     }

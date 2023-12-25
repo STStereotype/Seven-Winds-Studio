@@ -33,11 +33,11 @@ fun ListEstablishmentsView(
                 .weight(1f)
                 .padding(top = 12.dp)
         ) {
-            items(listEstablishments.size) { index ->
+            items(listEstablishments.size) { position ->
                 CardEstablishment(
-                    titleCard = listEstablishments[index].name,
+                    titleCard = listEstablishments[position].name,
                     onClick = {
-                        onClickEstablishment.invoke(listEstablishments[index].id)
+                        onClickEstablishment.invoke(listEstablishments[position].id)
                     }
                 )
             }

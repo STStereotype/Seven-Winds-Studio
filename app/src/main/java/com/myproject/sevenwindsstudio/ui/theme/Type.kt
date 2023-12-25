@@ -59,6 +59,14 @@ val Typography = SevenWindsStudioTypography(
         fontSize = 14.sp,
         color = BaseLightPalette.primaryColor
     ),
+    cartDrinkCount = TextStyle(
+        fontFamily = SFUIDisplay,
+        fontStyle = FontStyle.Normal,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        textAlign = TextAlign.Center,
+        color = BaseLightPalette.primaryColor
+    ),
     cardDrinkCount = TextStyle(
         fontFamily = SFUIDisplay,
         fontStyle = FontStyle.Normal,
